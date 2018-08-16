@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: dev
+  server:
+    name: sl0v3c
+    port: 9527

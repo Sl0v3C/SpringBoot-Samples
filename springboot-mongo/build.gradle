@@ -21,6 +21,10 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter')
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-dependencies:2.0.4.RELEASE")
+    compileOnly("org.projectlombok:lombok:1.18.2")
+    compile("org.springframework.data:spring-data-mongodb:2.0.9.RELEASE")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
