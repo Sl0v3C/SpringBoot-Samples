@@ -1,4 +1,4 @@
-# Spring Boot Mongo Sample
+# Spring Boot MongoDB Sample
 
 ### Configuration
 * 实现config.mongo中的各个db的config, 如AccountConfig(重点是多个urls的配置注册)

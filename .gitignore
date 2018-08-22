@@ -1,0 +1,24 @@
+springboot-mongo/out
+springboot-mongo/log/
+pringboot-mongo/.gradle
+springboot-mongo/build/
+!springboot-mongo/gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
+springboot-mongo/.idea
+springboot-mongo/*.iws
+springboot-mongo/*.iml
+springboot-mongo/*.ipr
+
+
+springboot-redis/out
+springboot-redis/log/
+springboot-redis/.gradle
+springboot-redis/build/
+!springboot-redis/gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
+springboot-redis/.idea
+springboot-redis/*.iws
+springboot-redis/*.iml
+springboot-redis/*.ipr
