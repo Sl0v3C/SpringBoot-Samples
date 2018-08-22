@@ -14,6 +14,10 @@
 #### Read
 * 可以通过定义的repositories里的接口来实现read操作,如find/findOne/count/findAll/exist等
 * 或者直接通过MongoTemplate来调用find(new Query, entityClass)的方式查询
+* 查找embedded document的方式可以通过如下两种方式：  
+    ```repositories的findParent_Embedded()的方式查询```
+    ```MongoTemplate来调用findOne(new Query(where("parent.embedded").is())的方式查询```
+
 
 #### Update  
 * 通过MongoTemplate来调用updateMulti/updateFirst来更新

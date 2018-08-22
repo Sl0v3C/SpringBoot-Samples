@@ -24,6 +24,9 @@ public class UserOperator {
         this.mongoTemplate = userMongoTemplate;
     }
 
+    /*
+     * Read
+     */
     public User findById(String id) {
         User user = userRepository.findUserById(id);
 
@@ -42,6 +45,33 @@ public class UserOperator {
         return user;
     }
 
+    public List<User> getAllUsers(String name, String nickname) {
+        List<User> userList = mongoTemplate.find(
+                new Query(where("name").is(name).and("nickname").is(nickname)),
+                User.class);
+
+        return userList;
+    }
+
+    /*
+     * Query Embedded document
+     */
+    public User findByAgeAndEmail(int age, String email) {
+        User user = userRepository.findUserByUserInfo_AgeAndUserInfo_Email(age, email);
+
+        return user;
+    }
+
+    public User findByAge(int age) {
+        User user = mongoTemplate.findOne(new Query(where("user_info.age").is(age)), User.class);
+
+        return user;
+    }
+
+
+    /*
+     * Create
+     */
     public User save(User user) {
         return userRepository.save(user);
     }
@@ -50,6 +80,9 @@ public class UserOperator {
         mongoTemplate.insert(user);
     }
 
+    /*
+     * Update
+     */
     public long updateMulti(String name, String email, String nickname) {
         UpdateResult result;
         result = mongoTemplate.updateMulti(
@@ -61,6 +94,9 @@ public class UserOperator {
 
     }
 
+    /*
+     * Delete
+     */
     public long delete(String name) {
         DeleteResult result;
         result = mongoTemplate.remove(new Query(where("name").is(name)), User.class);
@@ -76,11 +112,5 @@ public class UserOperator {
         userRepository.deleteById(id);
     }
 
-    public List<User> getAllUsers(String name, String nickname) {
-        List<User> userList = mongoTemplate.find(
-                new Query(where("name").is(name).and("nickname").is(nickname)),
-                User.class);
 
-        return userList;
-    }
 }

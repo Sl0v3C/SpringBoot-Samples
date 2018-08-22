@@ -1,5 +1,6 @@
 package com.sl0v3c.samples.entity;
 
+import com.sl0v3c.samples.entity.embedded.UserInfo;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -16,4 +17,5 @@ public class User {
     public String nickname;
     @Field("english_name")
     public String englishName;
+    public UserInfo userInfo;
 }
