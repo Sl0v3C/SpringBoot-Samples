@@ -18,12 +18,20 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven {
+        url 'https://repo.spring.io/libs-release'
+    }
 }
 
 dependencies {
+    compile("org.springframework.data:spring-data-redis:2.0.9.RELEASE")
     compile("org.springframework.boot:spring-boot-starter")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("redis.clients:jedis:2.9.0")
     compile("org.springframework.boot:spring-boot-dependencies:2.0.4.RELEASE")
     compileOnly("org.projectlombok:lombok:1.18.2")
+    compileOnly("org.springframework.boot:spring-boot-configuration-processor")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+compileJava.dependsOn(processResources)
