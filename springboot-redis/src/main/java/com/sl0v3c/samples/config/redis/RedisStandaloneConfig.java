@@ -5,20 +5,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-public class RedisConfig {
+@EnableRedisRepositories
+public class RedisStandaloneConfig {
 
     @Bean
-    public RedisConnectionFactory cf() {
-        return new JedisConnectionFactory();  // default localhost and port 6379
+    public RedisConnectionFactory connectionFactory() {
+        // default localhost and port 6379
+        return new JedisConnectionFactory();
     }
 
     @Bean
-    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory cf) {
+    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<?, ?> template = new RedisTemplate<>();
-        template.setConnectionFactory(cf);
+        template.setConnectionFactory(connectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
 
