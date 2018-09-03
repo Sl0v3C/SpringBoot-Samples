@@ -1,4 +1,3 @@
-/*
 package com.sl0v3c.samples;
 
 import org.springframework.boot.SpringApplication;
@@ -15,4 +14,3 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 }
-*/

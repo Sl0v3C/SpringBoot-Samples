@@ -17,9 +17,10 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes= RedisStandaloneConfig.class)
+@ContextConfiguration(classes = GoodsRepository.class)
 public class GoodsRepositoryTest<K, V> {
 
-    @Autowired
+    //@Autowired
     private RedisOperations<K, V> operations;
 
     @Autowired
