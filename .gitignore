@@ -14,6 +14,8 @@ springboot-mongo/*.ipr
 springboot-redis/out
 springboot-redis/log/
 springboot-redis/.gradle
+springboot-redis/.project
+springboot-redis/bin
 springboot-redis/build/
 !springboot-redis/gradle/wrapper/gradle-wrapper.jar
 

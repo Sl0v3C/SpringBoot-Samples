@@ -7,7 +7,7 @@ public class KeyPrefix {
     private String key;
 
     public KeyPrefix(String part, Object object) {
-        this.key =  object.getClass().getName() + ": " + part;
+        this.key =  object.getClass().getSimpleName() + ": " + part;
     }
 
 }

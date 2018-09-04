@@ -19,9 +19,9 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=RedisStandaloneConfig.class)
 public class RedisStandaloneTemplateTest {
-
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    private RedisTemplate<String, Goods> redisStandaloneTemplate;
+    private RedisTemplate<String, Goods> redisTemplate;
 
     Goods adidas = new Goods("adidas 3", "BasketBall 23", 466, "Adidas basketball shoes",
             new WarehouseInfo("727", 0.15));
@@ -36,13 +36,13 @@ public class RedisStandaloneTemplateTest {
 
     @After
     public void cleanUp() {
-        redisStandaloneTemplate.delete(list);
+        redisTemplate.delete(list);
     }
 
     @Test
     public void saveSingleEntity() {
-        redisStandaloneTemplate.opsForValue().set(key1, adidas);
-        Goods goods = redisStandaloneTemplate.opsForValue().get(key1);
+        redisTemplate.opsForValue().set(key1, adidas);
+        Goods goods = redisTemplate.opsForValue().get(key1);
 
         assertEquals(goods.getDesc(), "Adidas basketball shoes");
         assertEquals(goods.getName(), "adidas 3");
@@ -53,13 +53,13 @@ public class RedisStandaloneTemplateTest {
     }
 
     @Test
-    public void saveMultiEntity() {
+    public void saveMultiEntities() {
         Map<String, Goods> products = new HashMap<>();
         products.put(key1, adidas);
         products.put(key2, adidas2);
         products.put(key3, nike);
-        redisStandaloneTemplate.opsForValue().multiSet(products);
-        List<Goods> goodsList = redisStandaloneTemplate.opsForValue().multiGet(list);
+        redisTemplate.opsForValue().multiSet(products);
+        List<Goods> goodsList = redisTemplate.opsForValue().multiGet(list);
 
         assertEquals(goodsList.size(), 3);;
     }

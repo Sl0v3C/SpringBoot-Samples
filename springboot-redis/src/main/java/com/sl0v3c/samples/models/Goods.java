@@ -12,15 +12,12 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(exclude = { "brother" })
 public class Goods implements Serializable {
-    private @Id String id;
     private @Indexed String name;
     private @Indexed String publicName;
     private int price;
     private String desc;
     private WarehouseInfo warehouseInfo;
-    private @Reference List<Goods> brother;
 
     public Goods(String name, String publicName, int price, String desc, WarehouseInfo warehouseInfo) {
         this.name = name;

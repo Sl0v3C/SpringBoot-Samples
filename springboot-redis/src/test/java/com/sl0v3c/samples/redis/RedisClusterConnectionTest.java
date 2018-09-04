@@ -12,8 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.connection.ClusterInfo;
 import org.springframework.data.redis.connection.RedisClusterConnection;
+import org.springframework.data.redis.connection.RedisClusterNode;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ActiveProfiles;
@@ -50,13 +53,14 @@ import static org.junit.Assert.assertEquals;
 @ActiveProfiles(profiles = "dev")
 public class RedisClusterConnectionTest {
     @Autowired
+    /**
+     * Qualifier can specify which RedisConnectionFactory will be autowired
+     */
+    @Qualifier("clusterConnection")
     private RedisConnectionFactory clusterConnection;
     private RedisClusterConnection redisClusterConnection;
     private Gson gson;
     private String key;
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Autowired
-    private RedisTemplate<String, Goods> redisClusterTemplate;
 
     Goods adidas = new Goods("adidas football 9", "FootBall 9", 567, "Adidas football shoes",
             new WarehouseInfo("727", 0.13));
@@ -71,17 +75,15 @@ public class RedisClusterConnectionTest {
     @After
     public void cleanUp() {
         redisClusterConnection.del(key.getBytes());
-        redisClusterTemplate.delete("123");
     }
 
     @Test
-    public void test() {
+    public void saveSingleEntity() {
         // assemble
 
         // run
         // maybe the key-value not in the same cluster
         redisClusterConnection.set(key.getBytes(), gson.toJson(adidas).getBytes());
-        redisClusterTemplate.opsForValue().set("123", adidas);
 
         // verify
         try {
@@ -96,13 +98,18 @@ public class RedisClusterConnectionTest {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
 
-        Goods goods = redisClusterTemplate.opsForValue().get("123");
-        assertEquals(goods.getPublicName(), "FootBall 9");
-        assertEquals(goods.getWarehouseInfo().getTaxRate(), 0.13, 0.00);
-        assertEquals(goods.getWarehouseInfo().getCode(), "727");
-        assertEquals(goods.getPrice(), 567);
-        assertEquals(goods.getName(), "adidas football 9");
+    @Test
+    public void redisClusterConnectionTest() {
+        // assemble
+
+        // run
+        Iterable<RedisClusterNode> nodes = redisClusterConnection.clusterGetNodes();
+        ClusterInfo clusterInfo = redisClusterConnection.clusterGetClusterInfo();
+
+        assertEquals(nodes.iterator().next().getHost(), "127.0.0.1");
+        assertEquals(clusterInfo.getKnownNodes().longValue(), 6);
     }
 
 }
