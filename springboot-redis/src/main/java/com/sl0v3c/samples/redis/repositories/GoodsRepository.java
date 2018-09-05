@@ -1,4 +1,4 @@
-package com.sl0v3c.samples.repositories;
+package com.sl0v3c.samples.redis.repositories;
 
 import com.sl0v3c.samples.models.Goods;
 import org.springframework.data.domain.Page;
@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
-interface GoodsRepository extends CrudRepository<Goods, String> {
+public interface GoodsRepository extends CrudRepository<Goods, String> {
 
     List<Goods> findByName(String name);
 

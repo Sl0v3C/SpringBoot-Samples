@@ -1,18 +1,17 @@
 package com.sl0v3c.samples.models;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Reference;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
-
 import java.io.Serializable;
-import java.util.List;
 
 @Data
-public class Goods implements Serializable {
+@NoArgsConstructor
+@RedisHash("goods")   // if you want to use repositories, make sure add this annotation. Or it will cause Errors
+public class Goods {
+    private @Id String id;
     private @Indexed String name;
     private @Indexed String publicName;
     private int price;

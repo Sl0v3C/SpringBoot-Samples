@@ -1,6 +1,6 @@
 package com.sl0v3c.samples.config.redis;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.sl0v3c.samples.models.Goods;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -8,6 +8,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
@@ -23,10 +24,11 @@ public class RedisStandaloneConfig {
 
     @Bean
     public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory standaloneConnection) {
-        RedisTemplate<?, ?> template = new RedisTemplate<>();
+        RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();  // use byte[] for converting
         template.setConnectionFactory(standaloneConnection);
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(Goods.class));
 
         return template;
     }

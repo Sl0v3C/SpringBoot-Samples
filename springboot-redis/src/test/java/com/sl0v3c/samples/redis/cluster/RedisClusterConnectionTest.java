@@ -1,4 +1,4 @@
-package com.sl0v3c.samples.redis;
+package com.sl0v3c.samples.redis.cluster;
 
 import com.google.gson.Gson;
 import com.sl0v3c.samples.Application;

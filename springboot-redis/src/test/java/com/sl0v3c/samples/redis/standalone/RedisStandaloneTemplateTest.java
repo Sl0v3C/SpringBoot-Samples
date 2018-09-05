@@ -1,4 +1,4 @@
-package com.sl0v3c.samples.redis;
+package com.sl0v3c.samples.redis.standalone;
 
 import com.sl0v3c.samples.config.redis.RedisStandaloneConfig;
 import com.sl0v3c.samples.models.Goods;

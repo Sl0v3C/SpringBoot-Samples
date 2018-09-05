@@ -52,3 +52,34 @@
     * setup the RedisClusterConnection redisClusterConnection & Gson gson
     * Check the redisClusterConnection methods
 
+#### Repositories
+Redis Repositories requires at least Redis Server version 2.8.0.
+##### Entity
+    @RedisHash("people")  
+    @NoArgsConstructor
+    @Id add id member
+
+##### Redis Config
+    @EnableRedisRepositories
+
+##### repository
+    extends CrudRepository<Object, String>  
+
+##### converter
+    @ReadingConverter
+    @WritingConverter
+    @Override convert
+
+#### Messaging(Pub/Sub)
+##### Receiver
+    implement receiveMessage callback
+
+##### Publisher
+    init RedisTemplate<?, ?> redisTemplate
+    call redisTemplate.convertAndSend(channel, message) to send message
+
+##### MessageListener
+    add Receiver bean
+    add MessageListenerAdapter bean which construct by Receiver bean and receiveMessage callback
+    add RedisMessageListenerContainer bean which construct RedisConnectionFactory instance & MessageListenerAdapter bean
+    
